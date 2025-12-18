@@ -139,7 +139,12 @@ function hexToRgb(hex) {
     const b = parseInt(hex.replace('#', ''), 16);
     return { r: (b >> 16) & 255, g: (b >> 8) & 255, b: b & 255 };
 }
-
+// Add Scale Bar to the bottom-right corner
+L.control.scale({
+    position: 'bottomright',
+    metric: true,       // Shows kilometers/meters
+    imperial: false     // Disable miles for EUDR/Scientific standard
+}).addTo(map);
 // Populate Legend
 const leg = document.getElementById('legend');
 Object.values(SIAM_CATEGORIES).forEach(c => {
