@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="c33.png" type="image/png" sizes="128x128"> <!--tap logo -->
+    <title>SIAM 33 Satellite Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.11.0/dist/geosearch.css"/>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; background: #1a1a1a; color: white; margin: 0; height: 100vh; overflow: hidden; }
+        
+        #sidebar { 
+            width: 300px; 
+            padding: 20px; 
+            background: #222; 
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #444; 
+            z-index: 1001; 
+        }
+
+        #legend-container { flex-grow: 1; overflow-y: auto; }
+        #main { flex-grow: 1; position: relative; display: flex; flex-direction: column; }
+
+        /* --- UPDATED BANNER WITH LOGOS ON TOP RIGHT --- */
+        #header-banner {
+            background: rgba(34, 34, 34, 0.95);
+            padding: 10px 25px;
+            border-bottom: 2px solid #1efa1e;
+            z-index: 1005;
+            display: flex;
+            justify-content: space-between; /* Pushes content to opposite ends */
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        
+        .title-group h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .title-group span { color: #1efa1e; font-weight: bold; }
+
+        .logo-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .logo-group img {
+            max-height: 25px; /* Scaled for the banner */
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+        }
+
+        #map { flex-grow: 1; width: 100%; background: #000; }
+        
+        #procCanvas { 
+            position: absolute; 
+            top: 0; left: 0; 
+            z-index: 450; 
+            display: none; 
+            width: 100%; height: 100%; 
+            pointer-events: none; 
+        }
+
+        .controls { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1002; display: flex; gap: 10px; }
+        
+        button { 
+            padding: 12px 24px; 
+            cursor: pointer; 
+            background: #333; 
+            color: white; 
+            border: 1px solid #666; 
+            border-radius: 4px; 
+            font-weight: bold; 
+        }
+        
+        .btn-process { background: #14af14; border-color: #1efa1e; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 6px; font-size: 11px; }
+        .color-box { width: 14px; height: 14px; margin-right: 8px; border: 1px solid #000; flex-shrink: 0; }
+        h3 { color: #1efa1e; margin-top: 0; }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <div id="legend-container">
+        <h3>COLO33 Legend</h3>
+        <div id="legend"></div>
+    </div>
+</div>
+
+<div id="main">
+    <div id="header-banner">
+        <div class="title-group">
+            <h1>Semantic Verification Tool</h1>
+        </div>
+        
+        <div class="logo-group">
+            <img src="NS_logo_twhite.png" alt="Logo 1" onerror="this.style.display='none'">
+            <img src="33.png" alt="COLO33" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <div id="map"></div>
+    <canvas id="procCanvas"></canvas>
+    
+    <div class="controls">
+        <button class="btn-process" onclick="processDrawnArea()">Run Analysis</button>
+        <button onclick="clearArea()">Reset</button>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.11.0/dist/bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
